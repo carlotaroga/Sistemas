@@ -1,0 +1,147 @@
+
+
+
+  /*password-eye*/
+    .password-wrapper {
+      position: relative;
+
+    }
+    
+    .toggle-button {
+      display: inline-flex;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: unset;
+      right: 12px;
+      cursor: pointer;
+    }
+    /**/
+
+    /*Formulario*/
+    .login {
+      color: #ffeff3;
+      background-position: center;
+      background-image: url(/img/img4.jpg);
+      background-size: cover;
+      text-align: center;
+      justify-content: center; 
+      display: flex;           
+    } 
+
+    .login .container-login {
+        margin: 50px;
+        
+        
+    }
+    #Contacto {
+      padding-top: 5%;
+      color: black;
+      font-family: 'MiFuente1';
+
+    }
+
+    #Contacto h4, h3, h6{
+      
+      color: black;
+      font-family: 'MiFuente2'; 
+    }
+
+    #Contacto p{
+      font-size: 1.2rem;
+    }
+
+
+    .login .container-login{
+      padding: 5%;
+     
+    }
+
+    #Login {
+      background-color: rgba(0, 0, 0, 0.751);
+           
+    }
+
+  .form {         
+    padding: 5%;
+    width: 100%;
+  }
+    
+  .form__input {
+    border: none;
+    border: 1px solid white;
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1.25rem; 
+    background-color: transparent;
+  }
+  
+  .form__input:focus {
+    border: 1px solid var(--rose-200);
+    color: var(--rose-200);
+    background-color: rgba(245, 245, 245, 0.081);
+    box-shadow: 0.01rem 0.01rem 0.7rem var(--rose-200);
+  }
+  
+  .form__input::placeholder {
+    color: white;        
+  }
+  
+  
+  .form__forget {
+    display: inline-block;
+    color: var(--rose-300);
+    margin-top: 20px;
+    font-size: 1.25rem;
+    text-align: center;
+    width: 100%;
+    text-decoration: none;
+  
+  }
+
+  .form__submit {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    text-align: center;
+    color: var(--rose-100);
+    font-size: 1.5rem;
+    border: none;
+    margin-top: 1.2rem;
+    transition: background-color .3s ease-in-out;
+    background-color: var(--rose-400);
+  }
+  
+  .form__submit:hover {
+    cursor: pointer;
+    background-color: var(--rose-600);
+  
+  }
+
+  /**/
+
+  /*SECCION MAPA*/
+  #maps{
+    border-color: var(--rose-400);
+    border-style: solid;
+
+  }
+  .container-fluid-map {
+    background-color: var(--rose-100);
+    align-items: center;
+    justify-content: center;
+   
+  }
+
+  .container-fluid-map .wpb_map_wraper{    
+    align-items: center;
+    justify-content: center;
+    padding: 10px; 
+    border-right-color: var(--rose-400);
+    border-right-style: solid;
+      
+  }
+  /**/

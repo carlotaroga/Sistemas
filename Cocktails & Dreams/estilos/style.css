@@ -1,0 +1,122 @@
+
+/* Generales*/
+:root {
+  --rose-50: #ffeff3;
+  --rose-100: #ffe0ea;
+  --rose-200: #ffc6da;
+  --rose-300: #ff97bb;
+  --rose-400: #ff5d98;
+  --rose-500: #ff247b;
+  --rose-600: #ff0571;
+  --rose-700: #d7005d;
+  --rose-800: #b40056;
+  --rose-900: #990250;
+  --rose-950: #570026;
+}
+
+@font-face {
+  font-family: 'MiFuente';
+  src: url('/paginas/fonts/Cinzel/Cinzel-VariableFont_wght.ttf') format('truetype');
+  
+}
+
+@font-face {
+  font-family: 'MiFuente2';
+  src: url('/paginas/fonts/Playfair_Display/static/PlayfairDisplay-Black.ttf') format('truetype');
+ }
+
+
+body {
+  background: linear-gradient(to right, rgba(253, 179, 179, 0.056), #72727227) rgba(0, 0, 0, 0.894);
+  font-family: nunito;
+}
+
+
+.boton {
+  color: var(--rose-400);
+  background-color: #ffe0ea00;
+  padding: 10px 30px; 
+  border-color: var(--rose-400);
+  border-style: solid;
+  font-size: larger;
+  font-style: italic;
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+  margin: 4%;
+}
+
+.boton:hover {d
+  background-color: var(--rose-100); 
+}
+
+
+/* Header */
+.offcanvas-title{
+  color: white;
+}
+.container-fluid-main {
+  background-image: url(/img/img3.jpg);
+  background-size: cover;
+  padding: 9%;
+  font-size: 3rem;
+  color: var(--rose-300);
+  text-align: center;
+  justify-content: center; 
+}
+
+  .cocktailscontainer {
+    background-color: #00000072;
+    padding: 10%;
+    align-items: center;
+    justify-content: center;
+    font-family: 'MiFuente2'; 
+  }
+
+
+
+/* Aside */
+  .aside{
+    color: var(--rose-300);
+    font-family: 'MiFuente1'; 
+    padding: 3%;
+    letter-spacing: 0.5cap;
+    font-size: larger;
+    border-color: var(--rose-300);
+    border-style: solid;
+  }
+
+/* Seccion */
+.section .container-section .row .col-lg:first-child img{
+  background-color: var(--rose-100);
+  padding: 20px; 
+  
+}
+
+  .section .container-section .row .col-lg:nth-child(2){
+    color: #ffe0ea;
+    padding: 4%;
+  } 
+
+    .section .container-section .row .col-lg:nth-child(2) h4{
+      color: var(--rose-300);
+      font-family: 'MiFuente2'; 
+      padding: 3%;
+      letter-spacing: 0.5cap;
+    } 
+
+
+    /*PRODUCTOS*/
+
+      .navbar2{
+        padding: 11%;   
+        font-family: 'MiFuente2';
+        color: var(--rose-100);
+        font-size: larger;
+        
+        background-image: url(/img/img1.jpg);
+        background-size: cover;
+        letter-spacing: 0.5cap;
+        text-shadow: -1px -1px 1px #333, 1px -1px 1px #333, -1px 1px 1px #333, 1px 1px 1px #333;
+      }
+
+    

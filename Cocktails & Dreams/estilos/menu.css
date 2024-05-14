@@ -1,0 +1,33 @@
+
+@media screen and (max-width: 768px) {
+  .navbar-brand {
+    font-size: 15px;
+    margin-left: -7cap;
+  }
+
+}
+
+.navbar-brand, .offcanvas-title{
+  letter-spacing: 1cap;
+  font-family: 'MiFuente', sans-serif;
+
+}
+
+.header__container {
+  text-indent: 5em;
+  
+}
+ 
+.nav-link  { 
+  color: var(--rose-50);
+  text-decoration: none;
+  font-size: 1.3rem;
+  
+}
+
+.nav-link:hover {
+  text-shadow: 1px 1px 30px var(--rose-500);
+  color:var(--rose-300);
+  
+}
+
