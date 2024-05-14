@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado productos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>Listado
+            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" 
+                data-bs-target="#insertar">
+                <i class="bi bi-plus-circle"></i>
+            </button>
+        </h1>
+
+        <table class="table table-striped table-hover table-small">
+            <tr>
+                <th>id</th>
+                <th>nombre</th>
+                <th>precio</th>
+            </tr>
+            <template id="templateProductoTabla">
+                <tr>
+                    <td class="id"></td>
+                    <td class="nombre"></td>
+                    <td class="precio"></td>
+                    <td class="eliminar">
+                        <button type="button" class="btn btn-danger borrar" onclick="borrarProducto(this, id)">
+                            <i class="bi bi-trash-fill"></i> 
+                        </button>  
+                    </td>
+                    <td class="modificar">
+                        <button type="button" class="btn btn-info editar" onclick="editarProducto(this, id)">
+                            <i class="bi bi-pencil-fill"></i> 
+                        </button>  
+                    </td>
+                </tr>
+            </template>
+            <tbody id="listadoProductos">
+
+            </tbody>
+        </table> 
+          
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="insertar">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Nuevo Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="mb-3">
+                    <label for="insertarNombre" class="form-label">Nombre Producto</label>
+                    <input type="text" class="form-control" id="insertarNombre" placeholder="Manzana Reineta...">
+                </div>
+                <div class="mb-3">
+                    <label for="insertarPrecio" class="form-label">Precio</label>
+                    <input type="number" step="0.01" class="form-control" id="insertarPrecio" placeholder="1.50">
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#insertar" onclick="insertarProducto()">Insertar</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        function listarProductos(){
+            fetch("http://localhost/spaAPIcrud-Carlota/listarProductos.php")
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(producto => {
+                    insertarProductoTabla(producto);
+                });
+            })
+        }
+
+        function insertarProductoTabla(producto){
+            let tabla = document.getElementById("listadoProductos");
+            let template = document.getElementById("templateProductoTabla").content;
+
+            let fila = template.cloneNode(true);
+            fila.querySelector(".id").innerHTML = producto.id;
+            fila.querySelector(".nombre").innerHTML = producto.nombre;
+            fila.querySelector(".precio").innerHTML = producto.precio + " €";
+            fila.querySelector(".borrar").setAttribute("id",producto.id);
+            fila.querySelector(".editar").setAttribute("id",producto.id);
+
+            tabla.appendChild(fila);
+        }
+
+        function editarProducto(elemento){
+            let nombre = elemento.parentNode.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML;
+            let precio = elemento.parentNode.previousElementSibling.previousElementSibling.innerHTML.replace(/[^\d.]/g, '');
+            let id = elemento.getAttribute("id");
+
+            swal({
+                content: {
+                    element: "div",
+                    attributes: {
+                        innerHTML: `
+                        <p>Nombre:
+                            <input id="inputNombre" class="swal2-input" value="`+nombre+`" type="text">
+                        </p>
+                        <p>Precio:
+                            <input id="inputPrecio" class="swal2-input" value="`+precio+`" type="number" step="0.01">
+                        </p>
+                        `,
+                    }
+                },
+                buttons: true,
+            })
+            .then((result) => {
+                if (result) {
+                    
+                    let nombre = document.getElementById("inputNombre").value;
+                    let precio = document.getElementById("inputPrecio").value;
+
+                    let datos = {
+                        "nombre": nombre,
+                        "precio": precio
+                    };
+
+                    let opciones = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(datos)
+                    };
+
+                    fetch("http://localhost/spaAPIcrud-Carlota/editarProducto.php?id="+id, opciones);
+
+                    document.getElementById("listadoProductos").innerHTML = "";
+                    swal("Producto modificado", "", "success");
+
+                    setTimeout(() => {listarProductos();}, 100);
+                }
+            })
+        }
+
+        function borrarProducto(elemento){
+            let id = elemento.getAttribute("id");
+            elemento.parentNode.parentNode.remove();
+            fetch("http://localhost/spaAPIcrud-Carlota/borrarProducto.php?id="+id);
+
+            swal("Producto borrado", "", "success");
+        }
+
+        function insertarProducto(){
+            document.getElementById("listadoProductos").innerHTML = "";
+            let nombre = document.getElementById("insertarNombre").value;
+            let precio = document.getElementById("insertarPrecio").value;
+
+            let datos = {
+                "nombre": nombre,
+                "precio": precio
+            };
+
+            let opciones = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datos)
+            };
+
+            fetch("http://localhost/spaAPIcrud-Carlota/insertarProducto.php", opciones)
+
+            document.getElementById("insertarNombre").value = "";
+            document.getElementById("insertarPrecio").value = "";
+
+            setTimeout(() => {listarProductos();}, 100);
+
+            swal("Producto añadido", "", "success");
+        }
+
+        listarProductos();
+    </script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
